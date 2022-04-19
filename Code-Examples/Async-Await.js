@@ -2,15 +2,16 @@
 let storeIsOpen = true;
 
 let shoesChoice = () => {
-  return new Promise((res, err) => {
+  return new Promise((resolve, reject) => {
     if (storeIsOpen) {
-      res(
+      resolve(
         setTimeout(() => {
+          console.log("An employee appears!");
           console.log("- Which one would you choose?");
-        }, 2000)
+        }, 3000)
       );
     } else {
-      console.log("The Store is closed!");
+      reject(console.log("The Store is closed!"));
     }
   });
 };
@@ -18,14 +19,18 @@ let shoesChoice = () => {
 async function otherThingsAreHappening() {
   console.log("The customer walks in...");
 
-  await shoesChoice();
-
-  setTimeout(() => {
-    console.log("I choose...");
-    console.log("This one!");
-  }, 5000);
+  try {
+    await shoesChoice();
+    setTimeout(() => {
+      console.log("I choose...");
+      console.log("This one!");
+    }, 8000);
+  } catch (error) {
+    console.log("Customer left...", error);
+  }
 }
 
 otherThingsAreHappening();
 
-console.log("An employee appears!");
+console.log("People are talking to with each other...");
+console.log("No one to help...");
